@@ -1,0 +1,887 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Maintix — Industrial Maintenance Operations</title>
+  <meta
+    name="description"
+    content="Maintix is a CMMS-style industrial maintenance platform for managing assets, work orders, preventive maintenance and operational performance."
+  />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Barlow:wght@300;400;500;600;700&family=Barlow+Condensed:wght@500;600;700&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" aria-label="Main navigation">
+      <div class="sidebar-header">
+        <div class="brand">
+          <div class="brand-mark" aria-hidden="true">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+              <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path>
+            </svg>
+          </div>
+          <div class="brand-text">
+            <span class="brand-name">Maintix</span>
+            <span class="brand-sub">Enterprise CMMS</span>
+          </div>
+        </div>
+
+        <button
+          class="sidebar-toggle"
+          id="sidebar-toggle"
+          type="button"
+          aria-label="Toggle navigation"
+          aria-expanded="false"
+        >
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="4" y1="7" x2="20" y2="7"></line>
+            <line x1="4" y1="12" x2="20" y2="12"></line>
+            <line x1="4" y1="17" x2="20" y2="17"></line>
+          </svg>
+        </button>
+      </div>
+
+      <div class="sidebar-context-card">
+        <div class="sidebar-context-top">
+          <div class="sidebar-context-dot"></div>
+          <span>Plant A — Main Facility</span>
+        </div>
+        <div class="sidebar-context-meta">
+          <span class="context-chip">Live Operations</span>
+          <span class="context-chip context-chip--soft">Shift 01</span>
+        </div>
+      </div>
+
+      <nav class="sidebar-nav">
+        <div class="nav-group">
+          <span class="nav-group-label">Operations</span>
+          <ul class="nav-list">
+            <li>
+              <a href="#" class="nav-item active" data-view="dashboard" aria-current="page">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="3" y="3" width="7" height="7"></rect>
+                  <rect x="14" y="3" width="7" height="7"></rect>
+                  <rect x="14" y="14" width="7" height="7"></rect>
+                  <rect x="3" y="14" width="7" height="7"></rect>
+                </svg>
+                <span>Dashboard</span>
+              </a>
+            </li>
+            <li>
+              <a href="#" class="nav-item" data-view="workorders">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M9 11l3 3L22 4"></path>
+                  <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path>
+                </svg>
+                <span>Work Orders</span>
+                <span class="nav-badge" id="nav-badge-wo">0</span>
+              </a>
+            </li>
+            <li>
+              <a href="#" class="nav-item" data-view="machines">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="12" cy="12" r="3"></circle>
+                  <path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14"></path>
+                </svg>
+                <span>Machines</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="nav-group">
+          <span class="nav-group-label">Insights</span>
+          <ul class="nav-list">
+            <li>
+              <a href="#" class="nav-item" data-view="analytics">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <line x1="18" y1="20" x2="18" y2="10"></line>
+                  <line x1="12" y1="20" x2="12" y2="4"></line>
+                  <line x1="6" y1="20" x2="6" y2="14"></line>
+                </svg>
+                <span>Analytics</span>
+                <span class="nav-pill nav-pill--live">Live</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <div class="nav-group">
+          <span class="nav-group-label">Management</span>
+          <ul class="nav-list">
+            <li>
+              <a href="#" class="nav-item nav-item--dim" tabindex="-1" aria-disabled="true">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="2" y="7" width="20" height="14" rx="2"></rect>
+                  <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
+                </svg>
+                <span>Inventory</span>
+                <span class="nav-pill">Soon</span>
+              </a>
+            </li>
+            <li>
+              <a href="#" class="nav-item nav-item--dim" tabindex="-1" aria-disabled="true">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                  <circle cx="9" cy="7" r="4"></circle>
+                  <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                  <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                </svg>
+                <span>Technicians</span>
+                <span class="nav-pill">Soon</span>
+              </a>
+            </li>
+            <li>
+              <a href="#" class="nav-item nav-item--dim" tabindex="-1" aria-disabled="true">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M3 3v18h18"></path>
+                  <path d="M7 15l4-4 3 3 5-7"></path>
+                </svg>
+                <span>Reports</span>
+                <span class="nav-pill">Soon</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+
+      <div class="sidebar-footer">
+        <div class="sidebar-user">
+          <div class="user-avi">RW</div>
+          <div class="user-meta">
+            <span class="user-name">R. Williams</span>
+            <span class="user-role">Maintenance Manager</span>
+          </div>
+          <div class="user-status">
+            <span class="user-status-dot"></span>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <div class="shell">
+      <header class="topbar">
+        <div class="topbar-left">
+          <div class="topbar-mobile">
+            <button
+              class="topbar-menu-btn"
+              id="topbar-menu-btn"
+              type="button"
+              aria-label="Open navigation"
+              aria-expanded="false"
+            >
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="4" y1="7" x2="20" y2="7"></line>
+                <line x1="4" y1="12" x2="20" y2="12"></line>
+                <line x1="4" y1="17" x2="20" y2="17"></line>
+              </svg>
+            </button>
+          </div>
+          <div>
+            <div class="eyebrow">Maintenance Operations Center</div>
+            <h1 class="page-heading" id="page-heading">Operations Dashboard</h1>
+            <div class="topbar-breadcrumb" id="topbar-breadcrumb">Plant A &rsaquo; Overview</div>
+          </div>
+        </div>
+
+        <div class="topbar-right">
+          <div class="topbar-meta">
+            <div class="topbar-time" id="topbar-time"></div>
+            <div class="topbar-health">
+              <span class="health-dot"></span>
+              <span>System healthy</span>
+            </div>
+          </div>
+          <button class="btn btn--ghost" id="btn-export" type="button">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+              <polyline points="7 10 12 15 17 10"></polyline>
+              <line x1="12" y1="15" x2="12" y2="3"></line>
+            </svg>
+            Export
+          </button>
+          <button class="btn btn--primary" id="btn-new-wo" type="button">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <line x1="12" y1="5" x2="12" y2="19"></line>
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+            </svg>
+            New Work Order
+          </button>
+        </div>
+      </header>
+
+      <main class="content">
+        <section class="hero-banner">
+          <div class="hero-banner__content">
+            <div class="hero-banner__eyebrow">Plant Performance Snapshot</div>
+            <h2 class="hero-banner__title">Control asset reliability, work execution and maintenance risk from a single operational view.</h2>
+            <p class="hero-banner__text">
+              Monitor asset health, prioritize interventions and manage maintenance throughput with a software experience designed to feel like a real industrial product.
+            </p>
+          </div>
+          <div class="hero-banner__stats">
+            <div class="hero-stat">
+              <span class="hero-stat__label">MTTR</span>
+              <strong class="hero-stat__value" id="hero-mttr">—</strong>
+            </div>
+            <div class="hero-stat">
+              <span class="hero-stat__label">Asset Uptime</span>
+              <strong class="hero-stat__value" id="hero-uptime">—</strong>
+            </div>
+            <div class="hero-stat">
+              <span class="hero-stat__label">PM Compliance</span>
+              <strong class="hero-stat__value" id="hero-pm">—</strong>
+            </div>
+          </div>
+        </section>
+
+        <section class="view" id="view-dashboard">
+          <div class="section-head">
+            <div>
+              <h2 class="section-title">Operational KPIs</h2>
+              <p class="section-subtitle">Core maintenance indicators for today’s plant execution.</p>
+            </div>
+          </div>
+
+          <div class="kpi-row">
+            <article class="kpi-card">
+              <div class="kpi-icon kpi-icon--blue">
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="12" cy="12" r="3"></circle>
+                  <path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14"></path>
+                </svg>
+              </div>
+              <div class="kpi-body">
+                <div class="kpi-label">Total Machines</div>
+                <div class="kpi-value" id="kpi-machines">—</div>
+              </div>
+              <div class="kpi-trend kpi-trend--neutral" id="kpi-machines-sub">—</div>
+            </article>
+
+            <article class="kpi-card">
+              <div class="kpi-icon kpi-icon--amber">
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <line x1="12" y1="8" x2="12" y2="12"></line>
+                  <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                </svg>
+              </div>
+              <div class="kpi-body">
+                <div class="kpi-label">Open Work Orders</div>
+                <div class="kpi-value" id="kpi-open">—</div>
+              </div>
+              <div class="kpi-trend kpi-trend--warn" id="kpi-open-sub">—</div>
+            </article>
+
+            <article class="kpi-card">
+              <div class="kpi-icon kpi-icon--orange">
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
+                  <line x1="12" y1="9" x2="12" y2="13"></line>
+                  <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                </svg>
+              </div>
+              <div class="kpi-body">
+                <div class="kpi-label">Pending Maintenance</div>
+                <div class="kpi-value" id="kpi-pending">—</div>
+              </div>
+              <div class="kpi-trend kpi-trend--warn" id="kpi-pending-sub">—</div>
+            </article>
+
+            <article class="kpi-card">
+              <div class="kpi-icon kpi-icon--green">
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                  <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                </svg>
+              </div>
+              <div class="kpi-body">
+                <div class="kpi-label">Completed This Month</div>
+                <div class="kpi-value" id="kpi-done">—</div>
+              </div>
+              <div class="kpi-trend kpi-trend--good" id="kpi-done-sub">—</div>
+            </article>
+          </div>
+
+          <div class="ops-strip">
+            <article class="ops-strip-card">
+              <div class="ops-strip-card__label">Critical backlog</div>
+              <div class="ops-strip-card__value" id="ops-critical-backlog">—</div>
+            </article>
+            <article class="ops-strip-card">
+              <div class="ops-strip-card__label">Due in next 7 days</div>
+              <div class="ops-strip-card__value" id="ops-due-soon">—</div>
+            </article>
+            <article class="ops-strip-card">
+              <div class="ops-strip-card__label">Active technicians</div>
+              <div class="ops-strip-card__value" id="ops-tech-active">7</div>
+            </article>
+            <article class="ops-strip-card">
+              <div class="ops-strip-card__label">Avg. response time</div>
+              <div class="ops-strip-card__value" id="ops-response-time">—</div>
+            </article>
+          </div>
+
+          <div class="dash-grid dash-grid--3">
+            <section class="panel" id="panel-critical">
+              <div class="panel-header">
+                <div>
+                  <span class="panel-title">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                      <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
+                      <line x1="12" y1="9" x2="12" y2="13"></line>
+                    </svg>
+                    Critical / High Priority
+                  </span>
+                  <p class="panel-subtitle">Work requiring immediate intervention.</p>
+                </div>
+                <a href="#" class="panel-link" data-view="workorders">View all →</a>
+              </div>
+              <div class="panel-body" id="critical-list"></div>
+            </section>
+
+            <section class="panel">
+              <div class="panel-header">
+                <div>
+                  <span class="panel-title">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                      <circle cx="12" cy="12" r="3"></circle>
+                      <path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14"></path>
+                    </svg>
+                    Machine Status
+                  </span>
+                  <p class="panel-subtitle">Asset condition by operating state.</p>
+                </div>
+                <a href="#" class="panel-link" data-view="machines">View all →</a>
+              </div>
+              <div class="panel-body" id="machine-status-list"></div>
+            </section>
+
+            <section class="panel">
+              <div class="panel-header">
+                <div>
+                  <span class="panel-title">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                      <path d="M3 3v18h18"></path>
+                      <path d="M7 15l4-4 3 3 5-7"></path>
+                    </svg>
+                    Maintenance Health
+                  </span>
+                  <p class="panel-subtitle">Summary performance indicators.</p>
+                </div>
+              </div>
+              <div class="panel-body">
+                <div class="metric-list">
+                  <div class="metric-row">
+                    <span>Schedule compliance</span>
+                    <strong id="metric-schedule-compliance">—</strong>
+                  </div>
+                  <div class="metric-row">
+                    <span>Emergency ratio</span>
+                    <strong id="metric-emergency-ratio">—</strong>
+                  </div>
+                  <div class="metric-row">
+                    <span>Average WO aging</span>
+                    <strong id="metric-wo-aging">—</strong>
+                  </div>
+                  <div class="metric-row">
+                    <span>Asset availability</span>
+                    <strong id="metric-asset-availability">—</strong>
+                  </div>
+                </div>
+              </div>
+            </section>
+          </div>
+
+          <div class="dashboard-lower-grid">
+            <section class="panel" id="panel-recent-wo">
+              <div class="panel-header">
+                <div>
+                  <span class="panel-title">Recent Work Orders</span>
+                  <p class="panel-subtitle">Latest activity across the plant.</p>
+                </div>
+                <a href="#" class="panel-link" data-view="workorders">All work orders →</a>
+              </div>
+              <div class="table-scroll">
+                <table class="data-table">
+                  <thead>
+                    <tr>
+                      <th>WO #</th>
+                      <th>Machine</th>
+                      <th>Description</th>
+                      <th>Technician</th>
+                      <th>Priority</th>
+                      <th>Status</th>
+                      <th>Created</th>
+                    </tr>
+                  </thead>
+                  <tbody id="dash-wo-tbody"></tbody>
+                </table>
+              </div>
+            </section>
+
+            <section class="panel">
+              <div class="panel-header">
+                <div>
+                  <span class="panel-title">Activity Feed</span>
+                  <p class="panel-subtitle">Operational events and maintenance updates.</p>
+                </div>
+              </div>
+              <div class="panel-body">
+                <div class="activity-feed" id="activity-feed"></div>
+              </div>
+            </section>
+          </div>
+        </section>
+
+        <section class="view hidden" id="view-workorders">
+          <div class="section-head">
+            <div>
+              <h2 class="section-title">Work Order Management</h2>
+              <p class="section-subtitle">Track execution, priorities, assignees and delivery performance.</p>
+            </div>
+          </div>
+
+          <div class="toolbar toolbar--stackable">
+            <div class="search-wrap">
+              <svg class="search-ico" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+              </svg>
+              <input type="text" id="wo-search" class="search-field" placeholder="Search work orders, machines, technicians or descriptions…" />
+            </div>
+
+            <div class="toolbar-filters">
+              <select class="select-field" id="wo-filter-status">
+                <option value="">All Statuses</option>
+                <option value="pending">Pending</option>
+                <option value="in-progress">In Progress</option>
+                <option value="completed">Completed</option>
+                <option value="cancelled">Cancelled</option>
+              </select>
+
+              <select class="select-field" id="wo-filter-priority">
+                <option value="">All Priorities</option>
+                <option value="critical">Critical</option>
+                <option value="high">High</option>
+                <option value="medium">Medium</option>
+                <option value="low">Low</option>
+              </select>
+
+              <select class="select-field" id="wo-filter-type">
+                <option value="">All Work Types</option>
+                <option value="Corrective">Corrective</option>
+                <option value="Preventive">Preventive</option>
+                <option value="Predictive">Predictive</option>
+                <option value="Emergency">Emergency</option>
+                <option value="Inspection">Inspection</option>
+                <option value="Calibration">Calibration</option>
+              </select>
+            </div>
+
+            <div class="toolbar-actions">
+              <button class="btn btn--ghost btn--sm" id="btn-reset-wo-filters" type="button">Reset filters</button>
+              <span class="toolbar-count" id="wo-count"></span>
+            </div>
+          </div>
+
+          <div class="panel panel--table">
+            <div class="table-scroll">
+              <table class="data-table" id="wo-table">
+                <thead>
+                  <tr>
+                    <th>WO #</th>
+                    <th>Machine</th>
+                    <th>Description</th>
+                    <th>Type</th>
+                    <th>Technician</th>
+                    <th>Priority</th>
+                    <th>Status</th>
+                    <th>Due Date</th>
+                    <th>Created</th>
+                    <th class="th-actions">Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="wo-tbody"></tbody>
+              </table>
+            </div>
+
+            <div class="empty-state hidden" id="wo-empty">
+              <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4">
+                <path d="M9 11l3 3L22 4"></path>
+                <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path>
+              </svg>
+              <h3>No work orders found</h3>
+              <p>No records match the current search and filter criteria.</p>
+            </div>
+          </div>
+        </section>
+
+        <section class="view hidden" id="view-machines">
+          <div class="section-head">
+            <div>
+              <h2 class="section-title">Asset Register</h2>
+              <p class="section-subtitle">Asset overview with status, location and maintenance planning visibility.</p>
+            </div>
+          </div>
+
+          <div class="toolbar toolbar--stackable">
+            <div class="search-wrap">
+              <svg class="search-ico" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+              </svg>
+              <input type="text" id="machine-search" class="search-field" placeholder="Search asset ID, machine name, type or location…" />
+            </div>
+
+            <div class="toolbar-filters">
+              <select class="select-field" id="machine-filter-status">
+                <option value="">All Statuses</option>
+                <option value="operational">Operational</option>
+                <option value="maintenance">Under Maintenance</option>
+                <option value="offline">Offline</option>
+                <option value="critical">Critical</option>
+              </select>
+
+              <select class="select-field" id="machine-filter-location">
+                <option value="">All Locations</option>
+              </select>
+            </div>
+
+            <div class="toolbar-actions">
+              <button class="btn btn--ghost btn--sm" id="btn-reset-machine-filters" type="button">Reset filters</button>
+              <span class="toolbar-count" id="machine-count"></span>
+            </div>
+          </div>
+
+          <div class="machines-layout">
+            <section class="panel panel--table">
+              <div class="table-scroll">
+                <table class="data-table">
+                  <thead>
+                    <tr>
+                      <th>Asset ID</th>
+                      <th>Machine Name</th>
+                      <th>Type</th>
+                      <th>Location</th>
+                      <th>Status</th>
+                      <th>Last Maintenance</th>
+                      <th>Next PM Due</th>
+                      <th>Open WOs</th>
+                    </tr>
+                  </thead>
+                  <tbody id="machine-tbody"></tbody>
+                </table>
+              </div>
+            </section>
+
+            <aside class="panel machine-side-panel">
+              <div class="panel-header">
+                <div>
+                  <span class="panel-title">Selected Asset</span>
+                  <p class="panel-subtitle">Machine detail preview for operational review.</p>
+                </div>
+              </div>
+              <div class="panel-body">
+                <div class="machine-preview-empty" id="machine-preview-empty">
+                  Select a machine to inspect reliability and planning details.
+                </div>
+                <div class="machine-preview hidden" id="machine-preview">
+                  <div class="machine-preview__head">
+                    <div>
+                      <h3 class="machine-preview__name" id="preview-name">—</h3>
+                      <p class="machine-preview__meta" id="preview-meta">—</p>
+                    </div>
+                    <span class="status-pill" id="preview-status">—</span>
+                  </div>
+
+                  <div class="machine-preview__grid">
+                    <div class="preview-stat">
+                      <span>Location</span>
+                      <strong id="preview-location">—</strong>
+                    </div>
+                    <div class="preview-stat">
+                      <span>Last maintenance</span>
+                      <strong id="preview-last-maintenance">—</strong>
+                    </div>
+                    <div class="preview-stat">
+                      <span>Next PM due</span>
+                      <strong id="preview-next-pm">—</strong>
+                    </div>
+                    <div class="preview-stat">
+                      <span>Open work orders</span>
+                      <strong id="preview-open-wo">—</strong>
+                    </div>
+                  </div>
+
+                  <div class="preview-block">
+                    <div class="preview-block__label">Operational note</div>
+                    <p id="preview-note">—</p>
+                  </div>
+                </div>
+              </div>
+            </aside>
+          </div>
+        </section>
+
+        <section class="view hidden" id="view-analytics">
+          <div class="section-head">
+            <div>
+              <h2 class="section-title">Maintenance Analytics</h2>
+              <p class="section-subtitle">Management-level operational indicators for portfolio presentation and product realism.</p>
+            </div>
+          </div>
+
+          <div class="analytics-grid">
+            <section class="panel">
+              <div class="panel-header">
+                <div>
+                  <span class="panel-title">Work Order Mix</span>
+                  <p class="panel-subtitle">Distribution by current execution state.</p>
+                </div>
+              </div>
+              <div class="panel-body">
+                <div class="analytics-list" id="analytics-status-breakdown"></div>
+              </div>
+            </section>
+
+            <section class="panel">
+              <div class="panel-header">
+                <div>
+                  <span class="panel-title">Priority Breakdown</span>
+                  <p class="panel-subtitle">Maintenance demand by urgency class.</p>
+                </div>
+              </div>
+              <div class="panel-body">
+                <div class="analytics-list" id="analytics-priority-breakdown"></div>
+              </div>
+            </section>
+
+            <section class="panel">
+              <div class="panel-header">
+                <div>
+                  <span class="panel-title">Asset Health Summary</span>
+                  <p class="panel-subtitle">Plant-level operating condition overview.</p>
+                </div>
+              </div>
+              <div class="panel-body">
+                <div class="analytics-list" id="analytics-machine-breakdown"></div>
+              </div>
+            </section>
+
+            <section class="panel">
+              <div class="panel-header">
+                <div>
+                  <span class="panel-title">Reliability Notes</span>
+                  <p class="panel-subtitle">Executive summary for demos and stakeholder presentations.</p>
+                </div>
+              </div>
+              <div class="panel-body">
+                <div class="insight-cards">
+                  <article class="insight-card">
+                    <span class="insight-card__label">Recommendation</span>
+                    <p id="insight-recommendation">—</p>
+                  </article>
+                  <article class="insight-card">
+                    <span class="insight-card__label">Risk outlook</span>
+                    <p id="insight-risk">—</p>
+                  </article>
+                  <article class="insight-card">
+                    <span class="insight-card__label">Execution focus</span>
+                    <p id="insight-focus">—</p>
+                  </article>
+                </div>
+              </div>
+            </section>
+          </div>
+        </section>
+      </main>
+    </div>
+  </div>
+
+  <div class="mobile-sidebar-backdrop hidden" id="mobile-sidebar-backdrop"></div>
+
+  <div class="modal-overlay hidden" id="modal-overlay" aria-hidden="true">
+    <div class="modal" id="modal-wo" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+      <div class="modal-head">
+        <div class="modal-head-left">
+          <div class="modal-ico">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M9 11l3 3L22 4"></path>
+              <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path>
+            </svg>
+          </div>
+          <div>
+            <div class="modal-title" id="modal-title">New Work Order</div>
+            <div class="modal-sub" id="modal-wo-num">Auto-assigned</div>
+          </div>
+        </div>
+        <button class="modal-close-btn" id="modal-close" type="button" aria-label="Close modal">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+
+      <div class="modal-body">
+        <form id="wo-form" novalidate>
+          <input type="hidden" id="f-id" />
+
+          <div class="form-section">
+            <div class="form-section__head">
+              <h3>Work order details</h3>
+              <p>Capture the asset, task scope and execution requirements.</p>
+            </div>
+
+            <div class="form-cols">
+              <div class="f-group">
+                <label class="f-label" for="f-machine">Machine <span class="req">*</span></label>
+                <select id="f-machine" class="f-input" required>
+                  <option value="">— Select machine —</option>
+                </select>
+              </div>
+
+              <div class="f-group">
+                <label class="f-label" for="f-type">Work Type <span class="req">*</span></label>
+                <select id="f-type" class="f-input" required>
+                  <option value="">— Select type —</option>
+                  <option value="Corrective">Corrective Maintenance</option>
+                  <option value="Preventive">Preventive Maintenance</option>
+                  <option value="Predictive">Predictive Maintenance</option>
+                  <option value="Emergency">Emergency Repair</option>
+                  <option value="Inspection">Inspection</option>
+                  <option value="Calibration">Calibration</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-cols">
+              <div class="f-group">
+                <label class="f-label" for="f-technician">Assigned Technician <span class="req">*</span></label>
+                <select id="f-technician" class="f-input" required>
+                  <option value="">— Assign technician —</option>
+                  <option>Carlos Méndez</option>
+                  <option>Sarah O'Brien</option>
+                  <option>Dmitri Volkov</option>
+                  <option>James Okafor</option>
+                  <option>Priya Nair</option>
+                  <option>Frank Tanner</option>
+                  <option>Liu Wei</option>
+                </select>
+              </div>
+
+              <div class="f-group">
+                <label class="f-label" for="f-priority">Priority <span class="req">*</span></label>
+                <select id="f-priority" class="f-input" required>
+                  <option value="">— Select priority —</option>
+                  <option value="critical">Critical</option>
+                  <option value="high">High</option>
+                  <option value="medium">Medium</option>
+                  <option value="low">Low</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="f-group">
+              <label class="f-label" for="f-desc">Description / Fault Report <span class="req">*</span></label>
+              <textarea
+                id="f-desc"
+                class="f-input f-textarea"
+                rows="4"
+                placeholder="Describe the issue, symptoms, risk, or scheduled maintenance scope…"
+                required
+              ></textarea>
+            </div>
+          </div>
+
+          <div class="form-section">
+            <div class="form-section__head">
+              <h3>Execution planning</h3>
+              <p>Define timeline, current status and maintenance context.</p>
+            </div>
+
+            <div class="form-cols">
+              <div class="f-group">
+                <label class="f-label" for="f-status">Status</label>
+                <select id="f-status" class="f-input">
+                  <option value="pending">Pending</option>
+                  <option value="in-progress">In Progress</option>
+                  <option value="completed">Completed</option>
+                  <option value="cancelled">Cancelled</option>
+                </select>
+              </div>
+
+              <div class="f-group">
+                <label class="f-label" for="f-due">Due Date</label>
+                <input type="date" id="f-due" class="f-input" />
+              </div>
+            </div>
+
+            <div class="f-group">
+              <label class="f-label" for="f-notes">Internal Notes</label>
+              <textarea
+                id="f-notes"
+                class="f-input f-textarea"
+                rows="3"
+                placeholder="Add safety instructions, required parts, outage window, permit notes or additional observations…"
+              ></textarea>
+            </div>
+          </div>
+
+          <div class="f-error hidden" id="f-error">Please complete all required fields before saving the work order.</div>
+        </form>
+      </div>
+
+      <div class="modal-foot">
+        <button type="button" class="btn btn--ghost" id="btn-cancel">Cancel</button>
+        <button type="button" class="btn btn--primary" id="btn-save">Create Work Order</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-overlay hidden" id="del-overlay" aria-hidden="true">
+    <div class="modal modal--sm" role="dialog" aria-modal="true" aria-labelledby="delete-title">
+      <div class="modal-head">
+        <div class="modal-head-left">
+          <div class="modal-ico modal-ico--red">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="3 6 5 6 21 6"></polyline>
+              <path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"></path>
+            </svg>
+          </div>
+          <div>
+            <div class="modal-title" id="delete-title">Delete Work Order</div>
+            <div class="modal-sub">This action is permanent</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-body">
+        <p class="del-text">
+          Are you sure you want to delete <strong id="del-wo-ref"></strong>? This action cannot be undone.
+        </p>
+      </div>
+
+      <div class="modal-foot">
+        <button class="btn btn--ghost" id="btn-del-cancel" type="button">Cancel</button>
+        <button class="btn btn--danger" id="btn-del-confirm" type="button">Delete</button>
+      </div>
+    </div>
+  </div>
+
+  <template id="empty-list-template">
+    <div class="empty-inline">
+      <span>No data available</span>
+    </div>
+  </template>
+
+  <script src="script.js"></script>
+</body>
+</html>
